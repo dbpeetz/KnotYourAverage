@@ -6,18 +6,20 @@ using System.Web;
 
 namespace KnotYourAverageTies.Models
 {
-    public class Products
+    public class Product
     {
-        [Key]
+        public int ProductID { get; set; }
         public int UPC { get; set; }
 
         [Display(Name="Name")]
         public string Name { get; set; }
+        [Display(Name="Department")]
         public string Section { get; set; }
         public double Price { get; set; }
         public int Inventory { get; set; }
 
+        public virtual Department Department { get; set; }
 
-
+        public virtual ICollection<Purchase> Purchases { get; set; }
     }
 }
