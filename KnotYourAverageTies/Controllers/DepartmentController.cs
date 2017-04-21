@@ -11,107 +11,107 @@ using KnotYourAverageTies.Models;
 
 namespace KnotYourAverageTies.Controllers
 {
-    public class CustomerController : Controller
+    public class DepartmentController : Controller
     {
         private ProductContext db = new ProductContext();
 
-        // GET: Customer
+        // GET: Department
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.Departments.ToList());
         }
 
-        // GET: Customer/Details/5
+        // GET: Department/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(department);
         }
 
-        // GET: Customer/Create
+        // GET: Department/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: Department/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,LastName,FirstName,LastPurchase")] Customer customer)
+        public ActionResult Create([Bind(Include = "DepartmentID,Name,TotalSales")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(department);
         }
 
-        // GET: Customer/Edit/5
+        // GET: Department/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(department);
         }
 
-        // POST: Customer/Edit/5
+        // POST: Department/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,LastName,FirstName,LastPurchase")] Customer customer)
+        public ActionResult Edit([Bind(Include = "DepartmentID,Name,TotalSales")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(department);
         }
 
-        // GET: Customer/Delete/5
+        // GET: Department/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(department);
         }
 
-        // POST: Customer/Delete/5
+        // POST: Department/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            Department department = db.Departments.Find(id);
+            db.Departments.Remove(department);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

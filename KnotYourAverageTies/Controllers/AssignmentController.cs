@@ -11,107 +11,116 @@ using KnotYourAverageTies.Models;
 
 namespace KnotYourAverageTies.Controllers
 {
-    public class CustomerController : Controller
+    public class AssignmentController : Controller
     {
         private ProductContext db = new ProductContext();
 
-        // GET: Customer
+        // GET: Assignment
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            var assignments = db.Assignments.Include(a => a.Department).Include(a => a.Employee);
+            return View(assignments.ToList());
         }
 
-        // GET: Customer/Details/5
+        // GET: Assignment/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(assignment);
         }
 
-        // GET: Customer/Create
+        // GET: Assignment/Create
         public ActionResult Create()
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName");
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: Assignment/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,LastName,FirstName,LastPurchase")] Customer customer)
+        public ActionResult Create([Bind(Include = "AssignmentID,EmployeeID,DepartmentID")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                db.Assignments.Add(assignment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", assignment.EmployeeID);
+            return View(assignment);
         }
 
-        // GET: Customer/Edit/5
+        // GET: Assignment/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", assignment.EmployeeID);
+            return View(assignment);
         }
 
-        // POST: Customer/Edit/5
+        // POST: Assignment/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,LastName,FirstName,LastPurchase")] Customer customer)
+        public ActionResult Edit([Bind(Include = "AssignmentID,EmployeeID,DepartmentID")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(assignment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", assignment.EmployeeID);
+            return View(assignment);
         }
 
-        // GET: Customer/Delete/5
+        // GET: Assignment/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Assignment assignment = db.Assignments.Find(id);
+            if (assignment == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(assignment);
         }
 
-        // POST: Customer/Delete/5
+        // POST: Assignment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            Assignment assignment = db.Assignments.Find(id);
+            db.Assignments.Remove(assignment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

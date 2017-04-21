@@ -47,7 +47,7 @@ namespace KnotYourAverageTies.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,UPC,Name,Section,Price,Inventory")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Name,UPC,SectionID,Price,Inventory")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace KnotYourAverageTies.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,UPC,Name,Section,Price,Inventory")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,UPC,SectionID,Price,Inventory")] Product product)
         {
             if (ModelState.IsValid)
             {

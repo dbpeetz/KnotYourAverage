@@ -9,12 +9,12 @@ namespace KnotYourAverageTies.Models
 {
     public class Department
     {
-        [Display(Name="Department")]
         public int DepartmentID { get; set; }
-        public string Name { get; set; }
-        public double TotalSales { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public string Name { get; set; }
+        public decimal TotalSales { get; set; }
+
+        public virtual ICollection<Assignment> Assignments { get; set; }
 
 
     }

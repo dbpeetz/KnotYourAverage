@@ -40,7 +40,7 @@ namespace KnotYourAverageTies.Controllers
         // GET: Purchase/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName");
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "LastName");
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name");
             return View();
         }
@@ -50,7 +50,7 @@ namespace KnotYourAverageTies.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PurchaseID,CustomerID,ProductID")] Purchase purchase)
+        public ActionResult Create([Bind(Include = "PurchaseID,ProductID,CustomerID,Quantity")] Purchase purchase)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace KnotYourAverageTies.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName", purchase.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "LastName", purchase.CustomerID);
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name", purchase.ProductID);
             return View(purchase);
         }
@@ -76,7 +76,7 @@ namespace KnotYourAverageTies.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName", purchase.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "LastName", purchase.CustomerID);
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name", purchase.ProductID);
             return View(purchase);
         }
@@ -86,7 +86,7 @@ namespace KnotYourAverageTies.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PurchaseID,CustomerID,ProductID")] Purchase purchase)
+        public ActionResult Edit([Bind(Include = "PurchaseID,ProductID,CustomerID,Quantity")] Purchase purchase)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace KnotYourAverageTies.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FirstName", purchase.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "LastName", purchase.CustomerID);
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name", purchase.ProductID);
             return View(purchase);
         }
