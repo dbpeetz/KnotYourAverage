@@ -10,6 +10,7 @@ namespace KnotYourAverageTies.DAL
     {
         protected override void Seed(ProductContext context)
         {
+            //TODO: Ask why the initializer will not load data into my DB
             var customer = new List<Customer>
             {
             new Customer { FirstName = "Donald", LastName = "Trump", LastPurchase = DateTime.Parse("2016-12-25") },

@@ -38,11 +38,11 @@
                 @Html.ValidationMessageFor(model => model.UPC, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <!--TODO: Ask why this is throwing an exception error-->
         <div class="form-group">
-            @Html.LabelFor(model => model.SectionID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SectionID, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SectionID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("SectionID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SectionID, "", new { @class = "text-danger" })
             </div>
         </div>
